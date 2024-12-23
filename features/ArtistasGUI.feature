@@ -25,6 +25,24 @@ Scenario: Falha no cadastro de artista por campo obrigatório vazio
     Then a opção de cadastrar fica bloqueada
     And aparece a mensagem "Preencha todos os campos obrigatórios"
 
+Scenario: Atualização no cadastro de artista com sucesso
+    Given eu estou na página "atualização de cadastro de artista"
+    And não existe Artista com o "nome artístico" "Daniel Oliveira"
+    When eu preencho o campo "nome artístico" com "Daniel Oliveira"
+    And eu preencho o campo "sobre o artista" com "xxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    And eu seleciono "Confirmar"
+    Then aparece a mensagem "Informações alteradas com sucesso"
+    
+Scenario: Alteração de senha do artista com sucesso
+    Given eu estou na página "Alteração de senha"
+    And minha senha atual é "senha123"
+    When eu preencho o campo "senha atual" com "oldsenhA"
+    And eu preencho o campo "nova senha" com "senha123"
+    And eu preencho o campo "confirmar senha" com "senha123"
+    And eu seleciono "alterar"
+    Then aparece a mensagem "senha alterada com sucesso"
+    And eu volto pra página "atualização de cadastro de artista"
+
 Scenario: Falha no cadastro de artista por dados já em uso
     Given eu estou na página "Cadastro de Artista"
     And existe Artista com o campo "nome artístico" preenchido com "Linkin Park"
@@ -74,4 +92,14 @@ Scenario: Falha no cadastro de artista por campo obrigatório vazio
     Given eu estou na página "Atualização de cadastro de Artista"
     When eu preencho o campo "login" com ""
     And eu seleciono "Confirmar"
-    Then aparece a mensagem de texto "Preencha todos os campos obrigatórios"
+    Then aparece a mensagem "Preencha todos os campos obrigatórios"
+
+Scenario: Falha no cadastro de artista por dados já em uso
+    Given eu estou na página "Cadastro de Artista"
+    And existe Artista com o campo "e-mail" preenchido com "linkinparts@ufpe.br"
+    When eu preencho o campo "nome artístico" com "Linkin Park"
+    And eu preencho o campo "login" com "LPark06"
+    And eu preencho o campo "e-mail" com "linkinparts@ufpe.br"
+    And eu preencho o campo "senha" com "password1"
+    And eu seleciono "Cadastrar"
+    Then aparece a mensagem "Já existe cadastro com esse e-mail"
