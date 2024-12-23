@@ -64,4 +64,4 @@ Scenario: Falha no cadastro de artista por campo obrigatório vazio
     Given eu estou na página "Atualização de cadastro de Artista"
     When eu preencho o campo "login" com ""
     And eu seleciono "Confirmar"
-    Then aparece a mensagem "Preencha todos os campos obrigatórios"
+    Then aparece a mensagem de texto "Preencha todos os campos obrigatórios"
