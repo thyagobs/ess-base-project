@@ -35,6 +35,16 @@ Scenario: Falha no cadastro de artista por dados já em uso
     And eu seleciono "Cadastrar"
     Then aparece a mensagem "Já existe cadastro com esse nome artístico"
 
+Scenario: Falha no cadastro de artista por dados já em uso
+    Given eu estou na página "Cadastro de Artista"
+    And existe Artista com o campo "login" preenchido com "LPark06"
+    When eu preencho o campo "nome artístico" com "Linkin Park"
+    And eu preencho o campo "login" com "LPark06"
+    And eu preencho o campo "e-mail" com "linkinparts@ufpe.br"
+    And eu preencho o campo "senha" com "password1"
+    And eu seleciono "Cadastrar"
+    Then aparece a mensagem "Já existe cadastro com esse login"    
+
 Scenario: Atualização no cadastro de artista com sucesso
     Given eu estou na página "atualização de cadastro de artista"
     And não existe Artista com o "nome artístico" "Daniel Oliveira"
