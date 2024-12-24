@@ -102,4 +102,4 @@ Scenario: Falha no cadastro de artista por dados já em uso
     And eu preencho o campo "e-mail" com "linkinparts@ufpe.br"
     And eu preencho o campo "senha" com "password1"
     And eu seleciono "Cadastrar"
-    Then aparece a mensagem "Já existe cadastro com esse e-mail"
+    Then surge a mensagem "Já existe cadastro com esse e-mail"
