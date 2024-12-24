@@ -23,7 +23,7 @@ Scenario: Falha no cadastro de artista por campo obrigatório vazio
     And eu preencho o campo "e-mail" com "daniel32@gmail.com"
     And eu preencho o campo "senha" com "password1"
     Then a opção de cadastrar fica bloqueada
-    And aparece a mensagem "Preencha todos os campos obrigatórios"
+    And surge a mensagem "Preencha todos os campos obrigatórios"
 
 Scenario: Atualização no cadastro de artista com sucesso
     Given eu estou na página "atualização de cadastro de artista"
