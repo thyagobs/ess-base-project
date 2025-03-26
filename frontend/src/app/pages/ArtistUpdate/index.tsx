@@ -8,19 +8,27 @@ import Password from "/src/shared/assets/password.png";
 
 const ArtistUpdatePage = () => {
 
+    interface Artist {
+        name: string;
+        login: string;
+        email: string;
+        password: string;
+        bio: string;
+      }
+
     const navigate = useNavigate();
     const navigateTo = (path: string) => {
         navigate(path);
     }
     const {login} = useParams();
-    const [artist, setArtist] = useState({
+    const [artist, setArtist] = useState<Artist>({
         name: "",
         login: "",
         email: "",
         password: "",
         bio: ""
     });
-    const [backup, setBackup] = useState({
+    const [backup, setBackup] = useState<Artist>({
         name: "",
         login: "",
         email: "",
@@ -31,7 +39,13 @@ const ArtistUpdatePage = () => {
     const [toastMessage, setToastMessage] = useState("");
     const [showToast, setShowToast] = useState(false);
 
-    const handleChange = (event) => {
+    const showToastMessage = (message: string) => {
+        setToastMessage(message);
+        setShowToast(true);
+        setTimeout(() => setShowToast(false), 3000);
+      };
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         const {name, value} = event.target; // Extrai nome e valor do input
         setArtist((prevArtist) => ({
             ...prevArtist,  // Garante que usa o estado atualizado
@@ -51,7 +65,7 @@ const ArtistUpdatePage = () => {
             })
     }, [login]);
     
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault(); // Evita que a página recarregue
         try {
             if(artist.name == "") {artist.name = backup.name};
@@ -69,9 +83,7 @@ const ArtistUpdatePage = () => {
     
             if (!response.ok) throw new Error(responseData.error || "Erro desconhecido");
 
-            setToastMessage(responseData.message); // Define a mensagem do toast
-            setShowToast(true);
-            setTimeout(() => setShowToast(false), 3000);
+            showToastMessage(responseData.message); // Define a mensagem do toast
             setTimeout(() => navigateTo('/artists/' + artist.login), 1500);
             // setArtist ({
             //     name: "",
@@ -82,9 +94,7 @@ const ArtistUpdatePage = () => {
             // });
 
         } catch (error) {
-            setToastMessage((error as Error).message); // Define a mensagem do toast
-            setShowToast(true);
-            setTimeout(() => setShowToast(false), 3000);
+            showToastMessage((error as Error).message); // Define a mensagem do toast
         }  
     };
 

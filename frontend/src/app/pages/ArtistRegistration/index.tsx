@@ -23,9 +23,8 @@ const ArtistRegistrationPage = () => {
 
     const [toastMessage, setToastMessage] = useState("");
     const [showToast, setShowToast] = useState(false);
-    const [isLogged, setIsLogged] = useState(true);
 
-    const handleChange = (event) => {
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {name, value} = event.target; // Extrai nome e valor do input
         setArtist((prevArtist) => ({
             ...prevArtist,  // Garante que usa o estado atualizado
@@ -33,7 +32,7 @@ const ArtistRegistrationPage = () => {
         }));
     };
 
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault(); // Evita que a página recarregue
         try {
             const response = await fetch("http://localhost:5001/artists", {
@@ -82,7 +81,7 @@ const ArtistRegistrationPage = () => {
                     </div>
                 </div>
                 <button className={styles.button} type="submit">Cadastrar</button>
-                <button className={styles.regButton} type="submit" onClick={() => navigateTo('/artistlogin')}>Já sou cadastrado</button>
+                <button className={styles.regButton} type="button" onClick={() => navigateTo('/artistlogin')}>Já sou cadastrado</button>
             </form>
             {showToast && (
                 <div className={styles.toast}>
